@@ -46,15 +46,20 @@ User message: {user_message}
 def get_stock_data(ticker: str) -> str:
     try:
         stock = yf.Ticker(ticker)
-        info = stock.info
+        fast = stock.fast_info
 
-        name        = info.get("longName", ticker)
-        price       = info.get("currentPrice") or info.get("regularMarketPrice")
-        change_pct  = info.get("regularMarketChangePercent")
-        week52_high = info.get("fiftyTwoWeekHigh")
-        week52_low  = info.get("fiftyTwoWeekLow")
-        market_cap  = info.get("marketCap")
-        volume      = info.get("regularMarketVolume")
+        name        = ticker.upper() 
+        price       = fast.last_price
+        week52_high = fast.year_high
+        week52_low  = fast.year_low
+        market_cap  = fast.market_cap
+        volume      = fast.last_volume
+        
+        prev_close  = fast.previous_close
+        if price and prev_close:
+            change_pct = ((price - prev_close) / prev_close) * 100
+        else:
+            change_pct = None
 
         if market_cap:
             if market_cap >= 1_000_000_000_000:
