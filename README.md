@@ -6,7 +6,7 @@ An AI-powered stock market assistant built with Groq, LangChain, yfinance, and S
 
 ## Live Demo
 
-Deployed on Streamlit Cloud: *(add your URL here after deployment)*
+Deployed on Streamlit Cloud: https://stockchat-r.streamlit.app/
 
 ---
 
